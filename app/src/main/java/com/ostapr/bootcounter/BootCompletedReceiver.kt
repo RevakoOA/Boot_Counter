@@ -16,11 +16,18 @@ class BootCompletedReceiver : BroadcastReceiver() {
 
     private fun scheduleNotification(context: Context) {
         val intent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, 0, intent, PendingIntent.FLAG_IMMUTABLE
+        )
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         // TODO change to TIME_15_MIN_MILLIS after debug
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, TIME_1_MIN_MILLIS, TIME_1_MIN_MILLIS, pendingIntent)
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            TIME_1_MIN_MILLIS,
+            TIME_1_MIN_MILLIS,
+            pendingIntent
+        )
     }
 
     companion object {

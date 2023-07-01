@@ -18,6 +18,7 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun showNotification(context: Context) {
+        // TODO move this to different class
         // TODO add logic to decide on the text
         val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle()

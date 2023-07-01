@@ -8,15 +8,23 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
+
+    private val permissionChecker = PermissionChecker()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val permission: String = RECEIVE_BOOT_COMPLETED
-            if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf<String>(permission), REQUEST_BOOT_PERMISSION)
-            }
+        permissionChecker.checkPermissionsAndRun(this, arrayOf(RECEIVE_BOOT_COMPLETED)) {
+
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionChecker.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }
